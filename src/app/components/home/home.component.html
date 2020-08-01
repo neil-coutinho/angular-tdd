@@ -1,1 +1,58 @@
-<p>home works!</p>
+
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+    <li [ngbNavItem]="1" data-test="home">
+      <a ngbNavLink>Home</a>
+      <ng-template ngbNavContent>
+
+
+
+       <div data-test="home-item" *ngFor="let home of homes$ | async">
+            <div data-test="title">{{home.title}}</div>
+            <img [src]="home.image" alt="Home Image" data-test="image"/>
+       </div>
+   
+
+
+
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="2"  data-test="dates">
+      <a ngbNavLink>Dates</a>
+      <ng-template ngbNavContent>
+        Dates
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="3" data-test="guests">
+      <a ngbNavLink>Guests</a>
+      <ng-template ngbNavContent>
+        Guests
+      </ng-template>
+    </li>
+
+    <li [ngbNavItem]="4" data-test="price">
+        <a ngbNavLink>Price</a>
+        <ng-template ngbNavContent>
+          Price
+        </ng-template>
+      </li>
+
+      <li [ngbNavItem]="5" data-test="rooms">
+        <a ngbNavLink>Rooms</a>
+        <ng-template ngbNavContent>
+          Rooms
+        </ng-template>
+      </li>
+
+      <li [ngbNavItem]="6" data-test="amenities">
+        <a ngbNavLink>Amenities</a>
+        <ng-template ngbNavContent>
+          Amenities
+        </ng-template>
+      </li>
+    
+  </ul>
+  
+  <div [ngbNavOutlet]="nav" class="mt-2"></div>
+  
+  <pre>Active: {{ active }}</pre>
+  
