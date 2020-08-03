@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { AppService } from '../../services/app.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private appService: AppService) { }
+  navClass: string = '';
   ngOnInit(): void {
+
+    this.navClass = this.appService.getNavClass();
+
   }
 
 }

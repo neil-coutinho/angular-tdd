@@ -1,8 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { SpyOnClass } from 'jasmine-es6-spies';
+import { spyOnClass } from 'jasmine-es6-spies';
 import { HomeService } from 'src/app/services/home.service';
+import { of } from 'rxjs';
 
 
 
@@ -10,7 +11,7 @@ import { HomeService } from 'src/app/services/home.service';
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
-
+  let homeService: jasmine.SpyObj<HomeService>;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ HomeComponent ],
@@ -18,9 +19,7 @@ describe('HomeComponent', () => {
       providers:[
         {
           provide: HomeService,
-          useFactory: () =>{
-
-          }
+          useFactory: () => spyOnClass(HomeService)
         }
       ]
      
@@ -31,7 +30,32 @@ describe('HomeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+   
+  });
+
+  beforeEach(() => {
+    homeService = TestBed.get(HomeService);
+    homeService.getHomes.and.returnValue(of([
+       {
+          id: 100,
+          title: `House 1`,
+          image: `some-image`,
+          description: `Some description`
+        },
+        {
+          id: 200,
+          title: `House 2`,
+          image: `some-image`,
+          description: `Some description`
+        },
+        {
+          id: 300,
+          title: `House 3`,
+          image: `some-image`,
+          description: `Some description`
+        }
+      ]));
+      fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -49,6 +73,7 @@ describe('HomeComponent', () => {
 
 
   it('should have 3 homes', () => {
+   
     expect(fixture.nativeElement.querySelectorAll('[data-test="home-item"]').length).toBe(3)
   });
 
