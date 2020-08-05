@@ -14,7 +14,7 @@ export class HomeService {
 
   getHomes() {
     //@todo Return homes via API call
-   return this.httpClient.get<any>('https://api.github.com/users');
-    return of([]);
+   return this.httpClient.get<any>('/assets/mocks/homes.json');
+    //return of([]);
   }
 }

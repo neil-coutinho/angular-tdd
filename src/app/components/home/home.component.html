@@ -5,11 +5,14 @@
       <ng-template ngbNavContent>
 
 
-
-       <div data-test="home-item" *ngFor="let home of homes$ | async">
+        <div class="homes">
+          <div data-test="home-item" *ngFor="let home of homes$ | async">
             <div data-test="title">{{home.title}}</div>
-            <img [src]="home.image" alt="Home Image" data-test="image"/>
-       </div>
+            <img [src]="home.image" alt="Home Image" data-test="image" />
+          </div>
+        </div>
+
+       
    
 
 

@@ -50,7 +50,7 @@ describe('HomeService', () => {
      service.getHomes().subscribe((data) => console.log(data));
 
      expect(spy).toHaveBeenCalledWith(homesMock);
-     expect(httpClient.get).toHaveBeenCalledWith('/homes');
+     expect(httpClient.get).toHaveBeenCalledWith('/assets/mocks/homes.json');
 
   });
 });
