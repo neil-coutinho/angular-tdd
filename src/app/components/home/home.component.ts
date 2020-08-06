@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HomeService } from '../../services/home.service';
+import { DialogService } from '../../services/dialog.service';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,9 @@ import { HomeService } from '../../services/home.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private homeService: HomeService) { }
+  constructor(
+    private homeService: HomeService,
+    private dialogService: DialogService) { }
   active = 1;
   homes$:Observable<Array<any>>;
 
@@ -40,6 +43,10 @@ export class HomeComponent implements OnInit {
     // ]);
 
 
+  }
+
+  openDialog() {
+    this.dialogService.open();
   }
 
 }

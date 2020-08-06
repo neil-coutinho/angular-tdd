@@ -3,6 +3,7 @@ import { HomeComponent } from './home.component';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { spyOnClass } from 'jasmine-es6-spies';
 import { HomeService } from 'src/app/services/home.service';
+import { DialogService } from 'src/app/services/dialog.service';
 import { of } from 'rxjs';
 
 
@@ -12,6 +13,7 @@ describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
   let homeService: jasmine.SpyObj<HomeService>;
+  let dialogService: jasmine.SpyObj<DialogService>;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ HomeComponent ],
@@ -20,7 +22,13 @@ describe('HomeComponent', () => {
         {
           provide: HomeService,
           useFactory: () => spyOnClass(HomeService)
+        },
+        {
+          provide: DialogService,
+          useFactory: () => spyOnClass(DialogService)
         }
+
+
       ]
      
     })
@@ -35,6 +43,7 @@ describe('HomeComponent', () => {
 
   beforeEach(() => {
     homeService = TestBed.get(HomeService);
+    dialogService = TestBed.get(DialogService);
     homeService.getHomes.and.returnValue(of([
        {
           id: 100,
@@ -84,6 +93,24 @@ describe('HomeComponent', () => {
     expect(home.querySelector('[data-test="title"]').innerText).toEqual('House 1');
     expect(home.querySelector('[data-test="image"]')).toBeTruthy();
     
+  });
+
+
+  it('should have a book button', () => {
+
+    const homeItem = fixture.nativeElement.querySelector('[data-test="home-item"]');
+    expect(homeItem.querySelector('[data-test="book-btn"]')).toBeTruthy();
+
+  });
+
+
+
+  it('should call dialog service open method', () => {
+    
+    const bookBtn = fixture.nativeElement.querySelector('[data-test="book-btn"] button');
+    bookBtn.click();
+    expect(dialogService.open).toHaveBeenCalled();
+
   });
 
 });
