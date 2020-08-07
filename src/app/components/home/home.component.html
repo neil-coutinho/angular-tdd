@@ -9,7 +9,7 @@
           <div data-test="home-item" *ngFor="let home of homes$ | async">
             <div data-test="title">{{home.title}}</div>
             <img [src]="home.image" alt="Home Image" data-test="image" />
-            <div class="form-group" data-test="book-btn"><button class="btn btn-primary" (click)="openDialog()">Book Now</button></div>
+            <div class="form-group" data-test="book-btn"><button class="btn btn-primary" (click)="openDialog(home)">Book Now</button></div>
           </div>
         </div>
 

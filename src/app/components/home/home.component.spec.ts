@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
-import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgbModule, NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { spyOnClass } from 'jasmine-es6-spies';
 import { HomeService } from 'src/app/services/home.service';
 import { DialogService } from 'src/app/services/dialog.service';

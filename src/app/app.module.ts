@@ -7,12 +7,14 @@ import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
+import { BookComponent } from './components/book/book.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    HomeComponent
+    HomeComponent,
+    BookComponent
   ],
   imports: [
     BrowserModule,
@@ -22,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
      
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents:[BookComponent]
 })
 export class AppModule { }
