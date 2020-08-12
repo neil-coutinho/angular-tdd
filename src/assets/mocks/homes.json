@@ -3,18 +3,21 @@
         "id": "100",
         "title": "House 1",
         "image": "assets/images/property.jpeg",
-        "description": "Some description"
+        "description": "Some description",
+        "price": 100
     },
     {
         "id": "200",
         "title": "House 2",
         "image": "assets/images/property.jpeg",
-        "description": "Some description"
+        "description": "Some description",
+        "price": 200
     },
     {
         "id": "300",
         "title": "House 3",
         "image": "assets/images/property.jpeg",
-        "description": "Some description"
+        "description": "Some description",
+        "price": 300
     }
 ]

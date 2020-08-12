@@ -1,14 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BookComponent } from './book.component';
+import { FormsModule } from '@angular/forms';
+declare var require: any
 
 describe('BookComponent', () => {
   let component: BookComponent;
   let fixture: ComponentFixture<BookComponent>;
   let homes = [];
+
+  const el = (selector) => fixture.nativeElement.querySelector(selector);
+ 
  
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports:[FormsModule],
       declarations: [ BookComponent ]
     })
     .compileComponents();
@@ -17,26 +23,7 @@ describe('BookComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(BookComponent);
     component = fixture.componentInstance;
-    homes = [
-      {
-          "id": "100",
-          "title": "House 1",
-          "image": "assets/images/property.jpeg",
-          "description": "Some description"
-      },
-      {
-          "id": "200",
-          "title": "House 2",
-          "image": "assets/images/property.jpeg",
-          "description": "Some description"
-      },
-      {
-          "id": "300",
-          "title": "House 3",
-          "image": "assets/images/property.jpeg",
-          "description": "Some description"
-      }
-  ];
+    homes = require('../../../assets/mocks/homes.json');
 
    
     component.data = homes[0];
@@ -50,11 +37,48 @@ describe('BookComponent', () => {
 
   //should show title
   it('should have a modal header with content = House 1', () => {
-    expect(fixture.nativeElement.querySelector('[data-test="modal-header"] .modal-title').textContent).toBe('House 1');
+    expect(el('[data-test="modal-header"] .modal-title').textContent).toContain('House 1');
   });
   //should show price per night
-  //should show checkIn field
-  //should show checkout field
-  //should show total
-  //should book after clicking book button
+
+  it('should have a modal header with content = House 1', () => {
+    expect(el('[data-test="modal-body"] .price').textContent)
+      .toContain('100');
+  });
+
+
+  it('should have a checkIn field', () => {
+    expect(el('[data-test="check-in"]'))
+      .toBeTruthy();
+  });
+
+  it('should have a checkOut field', () => {
+    expect(el('[data-test="check-out"]'))
+      .toBeTruthy();
+  });
+
+  it('should show total', () => {
+    expect(el('[data-test="total"]'))
+      .toBeTruthy();
+  });
+
+  it('total should be $200 for 2 nights', () => {
+    
+    let checkIn = el('[data-test="check-in"]');
+    let checkOut = el('[data-test="check-out"]');
+
+    checkIn.value = '10-08-2020';
+    checkIn.dispatchEvent(new Event('input'));
+
+    checkOut.value = '12-08-2020';
+    checkOut.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    
+    
+    expect(el('[data-test="total"]').textContent)
+      .toBe('$200');
+  });
+  
+  
 });
