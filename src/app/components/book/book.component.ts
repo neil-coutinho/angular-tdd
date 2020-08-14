@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommentStmt } from '@angular/compiler';
 import * as moment from  'moment';
+import { HomeService } from 'src/app/services/home.service';
 @Component({
   selector: 'app-book',
   templateUrl: './book.component.html',
@@ -11,7 +12,7 @@ export class BookComponent implements OnInit {
   data:any;
   checkIn: string;
   checkOut: string;
-  constructor() { }
+  constructor(private homeService: HomeService) { }
 
   ngOnInit(): void {
 
@@ -25,6 +26,14 @@ export class BookComponent implements OnInit {
 
     return cost;
 
+  }
+
+
+  bookNow() {
+    this.homeService.bookNow$()
+      .subscribe((res) => {
+        console.log(res);
+      });
   }
 
 }

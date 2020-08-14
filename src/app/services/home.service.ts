@@ -17,4 +17,10 @@ export class HomeService {
    return this.httpClient.get<any>('/assets/mocks/homes.json');
     //return of([]);
   }
+
+  bookNow$() {
+    console.log('in book now');
+    return this.httpClient.post('https://run.mocky.io/v3/c2c1fd45-2d2d-447e-a4fa-0a870717eb2e',{});
+    //return of({});
+  }
 }

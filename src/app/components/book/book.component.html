@@ -11,4 +11,6 @@
     <input type="text" data-test="check-out" [(ngModel)]="checkOut"/>
 
     <div data-test="total">${{calculateTotal(checkIn, checkOut)}}</div>
+
+    <button data-test="book-btn" (click)="bookNow()">Book Now</button>
 </div>
