@@ -3,8 +3,9 @@ import { BookComponent } from './book.component';
 import { FormsModule } from '@angular/forms';
 import { HomeService } from 'src/app/services/home.service';
 import { spyOnClass } from 'jasmine-es6-spies';
-import { NgbDatepickerKeyboardService } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerKeyboardService, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { of } from 'rxjs';
+import { DialogService } from 'src/app/services/dialog.service';
 declare var require: any
 
 describe('BookComponent', () => {
@@ -12,6 +13,7 @@ describe('BookComponent', () => {
   let fixture: ComponentFixture<BookComponent>;
   let homes = [];
   let homeService: jasmine.SpyObj<HomeService>;
+  let activeModal: jasmine.SpyObj<NgbActiveModal>;
 
   const el = (selector) => fixture.nativeElement.querySelector(selector);
  
@@ -23,6 +25,9 @@ describe('BookComponent', () => {
       declarations: [ BookComponent ],
       providers: [{
         provide: HomeService, useFactory: () => spyOnClass(HomeService)
+      },
+      {
+        provide: NgbActiveModal, useFactory: () => spyOnClass(NgbActiveModal)
       }]
     })
     .compileComponents();
@@ -33,6 +38,7 @@ describe('BookComponent', () => {
     component = fixture.componentInstance;
     homes = require('../../../assets/mocks/homes.json');
     homeService = TestBed.get(HomeService);
+    activeModal = TestBed.get(NgbActiveModal);
    
     component.data = homes[0];
    
@@ -117,6 +123,36 @@ describe('BookComponent', () => {
     //call api service method to book to have been called
   
     expect(homeService.bookNow$).toHaveBeenCalled();
+    
+    
+    
+  });
+
+
+
+  it('should close modal on success of clicking book now', () => {
+    
+    let checkIn = el('[data-test="check-in"]');
+    let checkOut = el('[data-test="check-out"]');
+    let bookBtn = el('[data-test="book-btn"]');
+
+  homeService.bookNow$.and.returnValue(of({}));
+
+
+    checkIn.value = '10-08-2020';
+    checkIn.dispatchEvent(new Event('input'));
+
+    checkOut.value = '12-08-2020';
+    checkOut.dispatchEvent(new Event('input'));
+   
+    console.log(bookBtn);
+
+    bookBtn.click();
+
+    fixture.detectChanges();
+    //call api service method to book to have been called
+  
+    expect(activeModal.close).toHaveBeenCalled();
     
     
     
