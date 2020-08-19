@@ -23,8 +23,24 @@ export class BookComponent implements OnInit {
   }
 
   calculateTotal(checkIn, checkOut) {
-    let nights = moment(checkOut, 'DD-MM-YYYY').diff(moment(checkIn, 'DD-MM-YYYY'), 'days');
+
+    let nights = 0;
     let cost = 0;
+
+    let checkInDate, checkOutDate;
+    if(checkIn && checkOut) {
+
+      checkInDate = moment(checkIn, 'DD-MM-YYYY');
+      checkOutDate = moment(checkOut, 'DD-MM-YYYY');
+      console.log(checkInDate, checkOutDate);
+      if(checkOutDate > checkInDate) {
+        nights = checkOutDate.diff(checkInDate, 'days');
+      }
+
+      
+    }
+    console.log(nights);
+   
     cost = (nights*this.data.price);
 
     return cost;

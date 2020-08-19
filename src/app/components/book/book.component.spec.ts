@@ -76,6 +76,44 @@ describe('BookComponent', () => {
       .toBeTruthy();
   });
 
+  
+  it('total should be $0 for invalid dates', () => {
+    
+    let checkIn = el('[data-test="check-in"]');
+    let checkOut = el('[data-test="check-out"]');
+
+    checkIn.value = null;
+    checkIn.dispatchEvent(new Event('input'));
+
+    checkOut.value = null;
+    checkOut.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    
+    
+    expect(el('[data-test="total"]').textContent)
+      .toBe('$0');
+  });
+
+
+  it('total should be $0 if checkIn > checkOut', () => {
+    
+    let checkIn = el('[data-test="check-in"]');
+    let checkOut = el('[data-test="check-out"]');
+
+    checkIn.value = '12-08-2020';
+    checkIn.dispatchEvent(new Event('input'));
+
+    checkOut.value = '10-08-2020'
+    checkOut.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    
+    
+    expect(el('[data-test="total"]').textContent)
+      .toBe('$0');
+  });
+
   it('total should be $200 for 2 nights', () => {
     
     let checkIn = el('[data-test="check-in"]');
